@@ -79,16 +79,16 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Multi Authentication
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    @auth('backoffice')
+                        <a href="{{ route('backoffice.dashboard') }}">Admin Dashboard</a>
+                    @else
+                        <a href="{{ route('backoffice.login') }}">Admin Login</a>
+                    @endauth
+                    <a href="https://github.com/belajar-develope/laravel-multi-authentication">How this is build</a>
                 </div>
             </div>
         </div>

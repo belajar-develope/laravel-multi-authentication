@@ -14,7 +14,7 @@ class AddUsersCreatorTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('created_by');
+            $table->unsignedInteger('created_by')->nullable();
             $table->foreign('created_by')
             ->references('id')->on('admins')->onDelete('cascade');
             $table->unsignedInteger('updated_by')->nullable();

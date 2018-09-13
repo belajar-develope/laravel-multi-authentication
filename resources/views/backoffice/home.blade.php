@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('backoffice.layouts.app')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Homepage User</div>
+                <div class="card-header">Dashboard Admin</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,9 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    Welcome to User Dashboard! <br/>
-                    @auth('backoffice')
-                        You are logged in as Admin too, you can go to <a href="{{route('backoffice.dashboard')}}">admin dashboard</a>!
+                    Welcome Admin to Your Dashboard <br/>
+                    @auth('web')
+                        You are logged in as User too, you can go to <a href="{{route('home')}}">admin dashboard</a>!
                     @endauth
                 </div>
             </div>
