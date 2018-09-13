@@ -10,4 +10,21 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * flushing login session data with suffix as guard name
+     *
+     * @var string
+     */
+    protected function flushLoginSession($sessionSuffix = 'web')
+    {
+        $content = [];
+        foreach (session()->all() as $key => $value) {
+            if (preg_match("/login_$sessionSuffix/", $key)) {
+                session()->forget($key);
+            }
+        }
+        
+        return true;
+    }
 }

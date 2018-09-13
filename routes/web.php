@@ -17,4 +17,27 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+Route::namespace('Backoffice')->group(function () {
+    Route::prefix('account')->group(function () {
+        $this->get('/', 'Auth\LoginController@showLoginForm');
+
+        // Authentication Routes...
+        $this->get('/login', 'Auth\LoginController@showLoginForm')->name('backoffice.login');
+        $this->post('/login', 'Auth\LoginController@login');
+        $this->post('/logout', 'Auth\LoginController@logout')->name('backoffice.logout');
+
+        // Password Reset Routes...
+        $this->get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('backoffice.password.request');
+        $this->post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('backoffice.password.email');
+        $this->get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('backoffice.password.reset');
+        $this->post('/password/reset', 'Auth\ResetPasswordController@reset')->name('backoffice.password.update');
+    });
+
+    Route::middleware('auth:backoffice')->group(function () {
+        Route::get('/dashboard', 'HomeController@index')->name('backoffice.dashboard');
+    });
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+});
